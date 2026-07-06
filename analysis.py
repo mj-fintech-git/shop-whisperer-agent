@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import os
+import sys
 from pathlib import Path
 
 from google.adk.runners import Runner
@@ -109,7 +110,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Shop Whisperer — 2-agent DS pipeline")
     parser.add_argument(
         "--csv",
-        default=os.getenv("DATASET_PATH", "orders.csv"),
+        default=os.getenv("DATASET_PATH"),
         help="Path to the input CSV file",
     )
     parser.add_argument(
@@ -124,8 +125,14 @@ def main() -> None:
     args = parser.parse_args()
 
     # Validate inputs
+    if not args.csv:
+        print("Error: No dataset CSV file provided. Please specify one with --csv or the DATASET_PATH environment variable.", file=sys.stderr)
+        sys.exit(1)
+
     if not Path(args.csv).exists():
-        raise FileNotFoundError(f"Dataset not found: {args.csv}")
+        print(f"Error: Dataset file not found: {args.csv}", file=sys.stderr)
+        sys.exit(1)
+
     if not os.getenv("ANTHROPIC_API_KEY"):
         raise EnvironmentError("ANTHROPIC_API_KEY is not set (required for DS_Agent)")
     if not os.getenv("GOOGLE_API_KEY"):
