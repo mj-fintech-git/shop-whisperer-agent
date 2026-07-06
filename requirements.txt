@@ -1,0 +1,10 @@
+google-adk>=1.0
+mcp[cli]>=1.27,<2
+moka-py>=0.1
+litellm>=1.50
+pydantic>=2.0
+pandas>=2.0
+scipy>=1.11
+numpy>=1.25
+tabulate>=0.9
+pytest>=8.0

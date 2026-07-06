@@ -1,0 +1,16 @@
+OrderID,CustomerID,Category,OrderValue_USD,TrafficSource,OrderStatus
+ORD-5001,CUST-1001,Electronics,149.99,Paid Ads,Returned
+ORD-5002,CUST-1002,Apparel,45.50,Organic Search,Completed
+ORD-5003,CUST-1003,Beauty,32.00,Social Media,Completed
+ORD-5004,CUST-1004,Home & Kitchen,89.00,Paid Ads,Completed
+ORD-5005,CUST-1001,Electronics,120.00,Paid Ads,Returned
+ORD-5006,CUST-1005,Apparel,55.00,Social Media,Completed
+ORD-5007,CUST-1002,Home & Kitchen,110.00,Organic Search,Completed
+ORD-5008,CUST-1006,Electronics,199.99,Paid Ads,Completed
+ORD-5009,CUST-1003,Beauty,28.50,Social Media,Returned
+ORD-5010,CUST-1004,Apparel,62.00,Paid Ads,Returned
+ORD-5011,CUST-1007,Home & Kitchen,75.00,Organic Search,Completed
+ORD-5012,CUST-1001,Electronics,135.00,Paid Ads,Returned
+ORD-5013,CUST-1005,Apparel,48.00,Social Media,Completed
+ORD-5014,CUST-1008,Electronics,210.00,Paid Ads,Completed
+ORD-5015,CUST-1002,Beauty,15.00,Organic Search,Completed
