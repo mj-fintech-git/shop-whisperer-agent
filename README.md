@@ -1,5 +1,9 @@
 # Shop Whisperer
 
+<p align="center">
+  <img src="assets/shop_whisperer_thumbnail.png" alt="Shop Whisperer Thumbnail" width="600"/>
+</p>
+
 **Shop Whisperer** is a production-ready, multi-agent data analysis pipeline built on the **Google Agent Development Kit (ADK)** and the **Model Context Protocol (MCP)**. It bridges the gap between rigorous statistical analysis and intuitive, jargon-free business explanation.
 
 By orchestrating a pipeline of specialized agents backed by a session-scoped analysis tool server and deterministic validation guardrails, Shop Whisperer ensures that data insights are statistically sound, logically grounded, and communicated in an accessible narrative format.
