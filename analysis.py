@@ -133,10 +133,13 @@ def main() -> None:
         print(f"Error: Dataset file not found: {args.csv}", file=sys.stderr)
         sys.exit(1)
 
-    if not os.getenv("ANTHROPIC_API_KEY"):
-        raise EnvironmentError("ANTHROPIC_API_KEY is not set (required for DS_Agent)")
     if not os.getenv("GOOGLE_API_KEY"):
-        raise EnvironmentError("GOOGLE_API_KEY is not set (required for Storyteller)")
+        raise EnvironmentError("GOOGLE_API_KEY is not set (required for Storyteller and fallback Gemini model)")
+
+    if not os.getenv("ANTHROPIC_API_KEY"):
+        print("[pipeline] ANTHROPIC_API_KEY not set. Falling back to gemini-2.5-flash for DS_Agent.")
+        from agents.ds_agent import ds_agent
+        ds_agent.model = "gemini-2.5-flash"
 
     asyncio.run(run(args.csv, args.problem))
 
