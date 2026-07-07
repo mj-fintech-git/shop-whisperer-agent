@@ -139,6 +139,7 @@ cython_debug/
 outputs/
 final_presentation.md
 analysis_result.json
+analysis_result_prompt.txt
 
 # Portable Git and temp files
 .git-portable/
