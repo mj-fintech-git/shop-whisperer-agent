@@ -95,10 +95,10 @@ async def run(csv_path: str, problem: str) -> None:
         session_id=session.id,
     )
     passed = final_session.state.get("guardrail_passed", False)
-    output_path = Path(__file__).parent / "final_presentation.md"
+    output_path = Path(__file__).parent / "outputs" / "final_presentation.md"
 
     if passed:
-        print(f"\n[done] final_presentation.md written ({output_path.stat().st_size} bytes)")
+        print(f"\n[done] outputs/final_presentation.md written ({output_path.stat().st_size} bytes)")
     else:
         violations = final_session.state.get("violations", [])
         print(f"\n[refusal] Guardrail failed. Violations: {len(violations)}")

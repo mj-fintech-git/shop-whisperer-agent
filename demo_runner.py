@@ -257,11 +257,14 @@ def main():
         f"or client acquisition costs in these database files. To figure that out, we would need to merge this order list with our actual marketing budgets."
     )
 
-    # Write final_presentation.md
-    with open("final_presentation.md", "w") as f:
-        f.write(prose + "\n")
+    # Write outputs/final_presentation.md
+    outputs_dir = Path("outputs")
+    outputs_dir.mkdir(parents=True, exist_ok=True)
+    output_path = outputs_dir / "final_presentation.md"
+    
+    output_path.write_text(prose + "\n", encoding="utf-8")
 
-    print(f"\n{BOLD}{GREEN}[done] final_presentation.md written ({os.path.getsize('final_presentation.md')} bytes){RESET}")
+    print(f"\n{BOLD}{GREEN}[done] outputs/final_presentation.md written ({output_path.stat().st_size} bytes){RESET}")
 
 if __name__ == "__main__":
     main()

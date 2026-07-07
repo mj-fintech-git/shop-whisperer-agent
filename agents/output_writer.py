@@ -17,8 +17,8 @@ from google.adk.agents import BaseAgent, InvocationContext
 from google.adk.events import Event
 from google.genai import types
 
-_OUTPUT_PATH = Path(__file__).parent.parent / "final_presentation.md"
-_JSON_OUTPUT_PATH = Path(__file__).parent.parent / "analysis_result.json"
+_OUTPUT_PATH = Path(__file__).parent.parent / "outputs" / "final_presentation.md"
+_JSON_OUTPUT_PATH = Path(__file__).parent.parent / "outputs" / "analysis_result.json"
 
 _REFUSAL_TEMPLATE = """\
 [Pipeline refusal — narrative did not pass guardrail checks after {n_attempts} attempt(s)]
@@ -66,6 +66,7 @@ class OutputWriter(BaseAgent):
             )
             status = f"[refusal] Guardrail failed after max iterations. Refusal written to {_OUTPUT_PATH}"
 
+        _OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
         _OUTPUT_PATH.write_text(output, encoding="utf-8")
 
         if raw_json:

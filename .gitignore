@@ -136,6 +136,7 @@ cython_debug/
 *.swo
 
 # Project specific outputs
+outputs/
 final_presentation.md
 analysis_result.json
 
