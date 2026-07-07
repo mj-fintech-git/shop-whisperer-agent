@@ -37,11 +37,11 @@ By orchestrating a pipeline of specialized agents backed by a session-scoped ana
                           [ final_presentation.md ]
 ```
 
-1. **The Analyst Agent (`ds_agent.py`)**: Uses a high-reasoning LLM (Claude Sonnet via LiteLLM) to perform mathematical and statistical analysis. It interacts with the dataset solely through MCP tools and outputs a structured `AnalysisResult` JSON object.
+1. **The Analyst Agent (`ds_agent.py`)**: Uses a high-reasoning LLM (Claude Sonnet via LiteLLM) to perform mathematical and statistical analysis. If the Anthropic API key is not configured, it automatically falls back to `gemini-2.5-flash`. It interacts with the dataset solely through MCP tools and outputs a structured `AnalysisResult` JSON object.
 2. **The State Bridge (`state_bridge.py`)**: deterministically parses the Analyst's JSON output, validates it against a shared Pydantic schema, and saves it to the session state.
 3. **The Storyteller Agent (`storyteller.py`)**: Translates structured JSON findings into a continuous, kitchen-table narrative. It has no tool access, preventing it from performing direct calculations or fabricating data.
 4. **The Guardrail Agent (`guardrail_agent.py`)**: Evaluates the Storyteller's narrative using regex-based logic to verify claim grounding, confidence calibration (hedging for sample sizes $n < 20$), and narrative overreach.
-5. **The Output Writer (`output_writer.py`)**: Writes the finalized narrative or a detailed refusal log to `final_presentation.md`.
+5. **The Output Writer (`output_writer.py`)**: Writes the finalized narrative or a detailed refusal log to `outputs/final_presentation.md`.
 
 ---
 
@@ -76,12 +76,14 @@ py -m pip install -r requirements.txt
 Set the required API keys for the pipeline agents:
 ```cmd
 :: Windows CMD
-set ANTHROPIC_API_KEY=your-anthropic-key-here
 set GOOGLE_API_KEY=your-google-gemini-key-here
+:: Optional: Set to use Claude Sonnet for the Analyst. If unset, it falls back to Gemini.
+set ANTHROPIC_API_KEY=your-anthropic-key-here
 
 :: PowerShell
-$env:ANTHROPIC_API_KEY="your-anthropic-key-here"
 $env:GOOGLE_API_KEY="your-google-gemini-key-here"
+# Optional: Set to use Claude Sonnet for the Analyst. If unset, it falls back to Gemini.
+$env:ANTHROPIC_API_KEY="your-anthropic-key-here"
 ```
 
 ---
@@ -99,8 +101,8 @@ py analysis.py --csv orders.csv --problem "We spent a large portion of our marke
 - `--problem`: Free-text business problem statement (defaults to the Paid Ads query or `BUSINESS_PROBLEM` environment variable).
 
 ### Output
-- If the narrative passes the guardrails, the result is saved to `final_presentation.md` in the root folder.
-- If the narrative fails to calibrate/ground after 2 attempts, a structured refusal report detailing the violations is written to `final_presentation.md`.
+- If the narrative passes the guardrails, the result is saved to `outputs/final_presentation.md` (and the raw JSON calculations are written to `outputs/analysis_result.json`).
+- If the narrative fails to calibrate/ground after 2 attempts, a structured refusal report detailing the violations is written to `outputs/final_presentation.md`.
 
 ---
 
